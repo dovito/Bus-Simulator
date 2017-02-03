@@ -69,19 +69,20 @@ Module Hierarchy:
 		/						 \	
 	     path.h 					       output.h	
 	      /							   \
-|---------------------------------------|	|-----------------------------------------------------------------------------------|
-|	--- path.c ---			|	| 						--- output.c ---		    |
-| void reverse(int* path, int length);  |	| void request_message(char buff[], int req_time, int bus_stop, int dest_bus_stop,  |
-|  int dijkstra(int** G,int source, 	|	|					int pick_time, int accomm_time);	    |
-|	int target, int noVertices);    |	| void decline_message(char buff[], int req_time, int bus_stop,			    |
-| 	int get_shortest_path(		|	|				int dest_bus_stop, int pick_time);		    |
-|	int* pathToReturn, int** cost, 	|	| void departure_message(char buff[], int event_time, int bus, int stop);   	    |
-|	int source, int target, 	|	| void arrival_message(char buff[], int event_time, int bus, int stop);		    |
-|		int no_stops);	 	|	| void boarding_message(char buff[], int event_time, int bus, int stop);	    |
-|---------------------------------------|	| void disembark_message(char buff[], int event_time, int bus, int stop);	    |
-						| void occupancy_message(char buff[], int event_time, int bus, int stop);	    |
-						| void convert_time(char str[], int time_in_seconds);				    |	|
-						|-----------------------------------------------------------------------------------|
+|---------------------------------------||------------------------------------------------------------------|
+|	--- path.c ---			|| 				--- output.c ---		    |
+| void reverse(int* path, int length);  || void request_message(char buff[], int req_time, int bus_stop,    |
+|  int dijkstra(int** G,int source, 	||		int dest_bus_stop, int pick_time, int accomm_time); |
+|	int target, int noVertices);    || void decline_message(char buff[], int req_time, int bus_stop,    |
+| 	int get_shortest_path(		||				int dest_bus_stop, int pick_time);  |
+|	int* pathToReturn, int** cost, 	|| void departure_message(char buff[], int event_time, int bus, int stop);|
+|	int source, int target, 	|| void arrival_message(char buff[], int event_time, int bus, int stop);|
+|		int no_stops);	 	|| void boarding_message(char buff[], int event_time, int bus, int stop);|
+|---------------------------------------|| void disembark_message(char buff[], int event_time, int bus, int stop);|
+					 | void occupancy_message(char buff[], int event_time, int bus, int stop);|
+					 | void convert_time(char str[], int time_in_seconds);		    |
+					 |------------------------------------------------------------------|
+					 
 simulation.c 	-command line paramater is recorded as inpt file name
 				-calls get_inputs(char *s) function in order to parse input file
 				-calls control_simulation() in order to start simulation
