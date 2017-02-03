@@ -1,0 +1,18 @@
+# Testing multiple invalid inputs:
+# Line 5: busCapacity must be unsigned integer 
+# Line 6: no letters allowed next to number
+# Line 17: map elements must be integers
+busCapacity 12.5
+boardingTime 10s
+requestRate 20.0
+pickupInterval 25.0
+maxDelay 15
+noStops 6
+map
+ 0  3 -1 -1 -1 -2 
+ 3  0  5 -1 -1 -1
+-1 -1  0  2 -1 -1
+-1 -1 -1  0  2  2
+-1  0 -1 -1  0 -1
+ 4 -1 -1 .9  4  0
+stopTime 48

@@ -1,0 +1,16 @@
+# Testing invalid input
+# Line 8: incorrect keyword
+busCapacity 12
+boardingTime 10
+requestRate 20.0
+pickupInterval 25.0
+maxDelay 15
+noStop 6
+map
+ 0  3 -1 -1 -1 -2 
+ 3  0  5 -1 -1 -1
+-1 -1  0  2 -1 -1
+-1 -1 -1  0  2  2
+-1  0 -1 -1  0 -1
+ 4 -1 -1  9  4  0
+stopTime 48
