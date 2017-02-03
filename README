@@ -65,10 +65,10 @@ Module Hierarchy:
 |void get_inputs(char *s);	|	|	void control_simulation();	    |	
 |-------------------------------|	|	void simulate(time_t tm);	    |
 					|-------------------------------------------|
-		 ^						^				
-		/						 \	
-	     path.h 					       output.h	
-	      /							   \
+		                          ^			^				
+		                         /			 \	
+	     			     path.h 	      	      output.h	
+	      			      /				   \
 |---------------------------------------|  |----------------------------------------------------------------------------|
 |	--- path.c ---			|  | 				--- output.c ---		    		|
 | void reverse(int* path, int length);  |  | void request_message(char buff[], int req_time, int bus_stop,    		|
