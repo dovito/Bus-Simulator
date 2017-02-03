@@ -51,42 +51,42 @@ Design Decisions & Issues
 -------------------------
 Module Hierarchy:
 
-				|---------------------------------------|             
-                |     	---	simulation.c ---			|
-                |functions:				  				|		      	
-                | 	int main(int argc, char **argv);	|
+		|---------------------------------------|             
+                |     	---	simulation.c ---	|
+                |functions:				|		      	
+                | int main(int argc, char **argv);	|
                 |---------------------------------------|       
-                ^          					^
-               /							|
-           inputs.h 					simulate.h
-             / 								|		
+                ^          			^
+               /				|
+           parser.h 			     simulate.h
+             / 				 	|		
 |-------------------------------|	|-------------------------------------------|
-|		--- inputs.c ---     	|	|	 		--- simulate.c ---				|
-|	void get_inputs(char *s);	|	|	void control_simulation();				|	
-|-------------------------------|	|	void simulate(time_t tm);				|
-									|-------------------------------------------|
-									^						^				
-								   /						 \	
-								path.h 					  output.h	
-								 /							   \
+|	--- parser.c ---     	|	|	--- simulate.c ---		    |
+|void get_inputs(char *s);	|	|	void control_simulation();	    |	
+|-------------------------------|	|	void simulate(time_t tm);	    |
+					|-------------------------------------------|
+		 ^						^				
+		/						 \	
+	     path.h 					       output.h	
+	      /							   \
 |---------------------------------------|	|-----------------------------------------------------------------------------------|
-|		--- path.c ---					|	| 						--- output.c ---											|
-|	void reverse(int* path, int length);|	| void request_message(char buff[], int req_time, int bus_stop, int dest_bus_stop,	|
-|	int dijkstra(int** G,int source, 	|	|												int pick_time, int accomm_time);	|
-|			int target, int noVertices);|	| void decline_message(char buff[], int req_time, int bus_stop,						|
-|	int get_shortest_path(				|	|												int dest_bus_stop, int pick_time);	|
-|		int* pathToReturn, int** cost, 	|	| void departure_message(char buff[], int event_time, int bus, int stop);			|
-|		int source, int target, 		|	| void arrival_message(char buff[], int event_time, int bus, int stop);				|
-|		int no_stops);	 	 			|	| void boarding_message(char buff[], int event_time, int bus, int stop);			|
-|---------------------------------------|	| void disembark_message(char buff[], int event_time, int bus, int stop);			|
-											| void occupancy_message(char buff[], int event_time, int bus, int stop);			|
-											| void convert_time(char str[], int time_in_seconds);								|
-											|-----------------------------------------------------------------------------------|
+|	--- path.c ---			|	| 						--- output.c ---		    |
+| void reverse(int* path, int length);  |	| void request_message(char buff[], int req_time, int bus_stop, int dest_bus_stop,  |
+|  int dijkstra(int** G,int source, 	|	|					int pick_time, int accomm_time);	    |
+|	int target, int noVertices);    |	| void decline_message(char buff[], int req_time, int bus_stop,			    |
+| 	int get_shortest_path(		|	|				int dest_bus_stop, int pick_time);		    |
+|	int* pathToReturn, int** cost, 	|	| void departure_message(char buff[], int event_time, int bus, int stop);   	    |
+|	int source, int target, 	|	| void arrival_message(char buff[], int event_time, int bus, int stop);		    |
+|		int no_stops);	 	|	| void boarding_message(char buff[], int event_time, int bus, int stop);	    |
+|---------------------------------------|	| void disembark_message(char buff[], int event_time, int bus, int stop);	    |
+						| void occupancy_message(char buff[], int event_time, int bus, int stop);	    |
+						| void convert_time(char str[], int time_in_seconds);				    |	|
+						|-----------------------------------------------------------------------------------|
 simulation.c 	-command line paramater is recorded as inpt file name
 				-calls get_inputs(char *s) function in order to parse input file
 				-calls control_simulation() in order to start simulation
 
-inputs.c     	-parses input file 
+parser.c     	-parses input file 
 				-assigns external variable values needed for simulation
 
 output.c 		-formats requested output messaages and copies them into 
@@ -103,7 +103,7 @@ simulate.c 		-runs experiments
 Parser Testing
 --------------
 Input files that were used for parser testing are in the 
-same directory as program:
+`inputs` directory as program:
 invalid_input_test1.in
 invalid_input_test2
 invalid_input_test3
@@ -113,7 +113,7 @@ experiment_noBuses
 Experimentation files
 ---------------------
 Input files that were used for experimenting are in the 
-same directory as program:
+`experiment` directory as program:
 experiment1
 experiment2
 experiment3
@@ -122,7 +122,7 @@ experiment4
 Memory check files
 -------------------
 Input files that were used for experimenting are in the 
-same directory as program:
+`inputs` directory as program:
 simple_input
 simple_experiment
 invalid_input_test1.in
