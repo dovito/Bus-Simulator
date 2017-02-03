@@ -1,0 +1,128 @@
+Command Line arguments
+-----------------------
+1. How to crate executable file?
+
+Open the terminal and change working directory into project
+directory, then type:
+			make -f makeFile
+this will create running program: ./simulator <parameter>
+
+Important! - parameter (name of input file) can be only one 
+word, otherwise error will be raised and program will exit.
+
+------------------------
+Input file specification
+------------------------
+Any number of comment lines marked with '#' will be accepted.
+
+busCapacity <unsigned int>
+boardingTime <unsigned int>
+requestRate <float>
+pickupInterval <float>
+maxDelay <unsigned int>
+noBuses <unsigned int
+noStops <unsigned int>
+map
+0      <int>  <int>  ...  <int>
+<int>  0      <int>  ...  <int>
+.      .       .     .	
+.      .       .     .
+.      .       .     ...  <...>
+<int>  <int>  <int>  ...  0
+For any float/unsigned integer/integer, if there is any 
+other symbol than digit, error will be raised and program 
+will exit.
+For any unsigned integer, if number is negative, error
+will be raised and program will exit.
+For any mistyped keyword default value of 0 will be assigned and warning
+will be returned.
+For any variable value given as 0, warning will be raised.
+---------------
+Experimentation
+---------------
+In order for program to perform experimentation, 
+experiment keyword followed by values shoud be included in the input file:
+e.g.
+maxDelay experiment 10 15 20
+Experimentations with different number of stops and different maps are not allowed.
+
+-------------------------
+Design Decisions & Issues
+-------------------------
+Module Hierarchy:
+
+				|---------------------------------------|             
+                |     	---	simulation.c ---			|
+                |functions:				  				|		      	
+                | 	int main(int argc, char **argv);	|
+                |---------------------------------------|       
+                ^          					^
+               /							|
+           inputs.h 					simulate.h
+             / 								|		
+|-------------------------------|	|-------------------------------------------|
+|		--- inputs.c ---     	|	|	 		--- simulate.c ---				|
+|	void get_inputs(char *s);	|	|	void control_simulation();				|	
+|-------------------------------|	|	void simulate(time_t tm);				|
+									|-------------------------------------------|
+									^						^				
+								   /						 \	
+								path.h 					  output.h	
+								 /							   \
+|---------------------------------------|	|-----------------------------------------------------------------------------------|
+|		--- path.c ---					|	| 						--- output.c ---											|
+|	void reverse(int* path, int length);|	| void request_message(char buff[], int req_time, int bus_stop, int dest_bus_stop,	|
+|	int dijkstra(int** G,int source, 	|	|												int pick_time, int accomm_time);	|
+|			int target, int noVertices);|	| void decline_message(char buff[], int req_time, int bus_stop,						|
+|	int get_shortest_path(				|	|												int dest_bus_stop, int pick_time);	|
+|		int* pathToReturn, int** cost, 	|	| void departure_message(char buff[], int event_time, int bus, int stop);			|
+|		int source, int target, 		|	| void arrival_message(char buff[], int event_time, int bus, int stop);				|
+|		int no_stops);	 	 			|	| void boarding_message(char buff[], int event_time, int bus, int stop);			|
+|---------------------------------------|	| void disembark_message(char buff[], int event_time, int bus, int stop);			|
+											| void occupancy_message(char buff[], int event_time, int bus, int stop);			|
+											| void convert_time(char str[], int time_in_seconds);								|
+											|-----------------------------------------------------------------------------------|
+simulation.c 	-command line paramater is recorded as inpt file name
+				-calls get_inputs(char *s) function in order to parse input file
+				-calls control_simulation() in order to start simulation
+
+inputs.c     	-parses input file 
+				-assigns external variable values needed for simulation
+
+output.c 		-formats requested output messaages and copies them into 
+				 variable passed as argument
+
+path.c 			-finds shortest distance from source to target vertices
+				-finds shortest path and its length (number of intermediate vertices)
+				 from source to target vertices	
+
+simulate.c 		-runs experiments
+				-runs simulation				 				 
+
+--------------
+Parser Testing
+--------------
+Input files that were used for parser testing are in the 
+same directory as program:
+invalid_input_test1.in
+invalid_input_test2
+invalid_input_test3
+invalid_input_test4
+experiment_noBuses
+---------------------
+Experimentation files
+---------------------
+Input files that were used for experimenting are in the 
+same directory as program:
+experiment1
+experiment2
+experiment3
+experiment4
+-------------------
+Memory check files
+-------------------
+Input files that were used for experimenting are in the 
+same directory as program:
+simple_input
+simple_experiment
+invalid_input_test1.in

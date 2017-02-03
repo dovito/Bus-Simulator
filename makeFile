@@ -1,0 +1,53 @@
+#
+# This is a Makefile for a bus simulation program.
+# Typing 'make' will create the running application.
+#
+
+# the compiler: gcc for C program, define as g++ for C++
+CC = gcc
+
+# compiler flags:
+#  -g    adds debugging information to the executable file
+#  -Wall turns on most, but not all, compiler warnings
+CFLAGS  = -g -Wall -lm
+
+LIBS = -lm
+
+FILES = parser.c output.c path.c simulate.c simulation.c
+
+TARGET = simulator
+
+.PHONY: default all clean
+
+default: $(TARGET)
+
+all: default
+
+HEADERS = $(wildcard *.h)
+
+OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
+
+%.o: %.c $(HEADERS)
+
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+
+clean:
+	-rm -f *.o
+	-rm -f $(TARGET)
+
+
+
+
+
+
+
+
+
+
+	
+
